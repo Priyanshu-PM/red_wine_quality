@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Red wine quality check</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    />
+
+    <!-- Optional theme -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+    />
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- animation link -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+    <style>
+      body {
+        background-image: url("https://www.teahub.io/photos/full/291-2913258_red-wine-background.jpg");
+        /* background-image: url("https://wallpaperaccess.com/full/468014.jpg"); */
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .main {
+        display: flex;
+        flex-direction: column;
+        /* justify-content: center; */
+        width: 60%;
+        /* height: 85vh; */
+        overflow: scroll;
+        overflow-x: hidden;
+        backdrop-filter: blur(16px) saturate(180%);
+        -webkit-backdrop-filter: blur(16px) saturate(180%);
+        background-color: rgba(255, 255, 255, 0.27);
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.125);
+        padding: 20px 40px !important;
+      }
+      .f_title {
+        font-size: 30px;
+        font-weight: 700;
+        color: #fff;
+        /* margin-bottom: 40px; */
+      }
+      .result {
+        color: #fff;
+        font-weight: bold;
+        /* font-size: 20px; */
+      }
+      .form {
+        display: flex;
+        flex-direction: column;
+        /* justify-content: center; */
+        /* align-items: center; */
+      }
+      .f_input {
+        color: #fff;
+        font-size: 15px;
+        padding: 0px 10px;
+        outline: none;
+        margin: 20px 0px;
+        background-color: transparent;
+        border: none;
+        border-bottom: 1px solid #fff;
+      }
+      .f_btn_container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .f_btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+        color: #000;
+        background-color: #fff;
+        border: none;
+        border-radius: 10px;
+        margin: 20px 0px;
+        width: 200px;
+        height: 40px;
+      }
+
+      .f_btn:hover {
+        color: #fff;
+        background-color: transparent;
+        border: 1px solid #fff;
+      }
+
+      @media only screen and (max-width: 600px) {
+        body {
+          background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpX5ZjBqVdtpayjBxc77BSwpHngdhchEvZrg&usqp=CAU");
+          /* background-size: contain; */
+        }
+        .main {
+          width: 90%;
+          height: 90vh;
+        }
+        /* .f_title {
+          margin-top: 20px;
+        } */
+      }
+      ::placeholder {
+        /* Chrome, Firefox, Opera, Safari 10.1+ */
+        color: #ddd;
+        text-transform: capitalize;
+        opacity: 0.8; /* Firefox */
+      }
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      ::-webkit-scrollbar {
+        width: 1px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="main" data-aos="zoom-in">
+        <h1 class="f_title">Enter the details of the wine:</h1>
+
+        {% if result %}
+        <div class="result">
+          <h2>The quality of wine is: <b>{{result}}</b></h2>
+          <p>(range from 1 to 10)</p>
+        </div>
+        {% endif %}
+        <form class="form" method="post" action="{{ url_for('main') }}">
+          <input
+            type="text"
+            class="f_input"
+            name="volatileAcidity"
+            placeholder="Volatile acidity (sample value:- 0.28)"
+            data-aos="fade-up"
+            data-aos-duration="500"
+            required
+          />
+          <input
+            type="text"
+            class="f_input"
+            name="citricAcid"
+            placeholder="Citric acid (sample value:- 0.56)"
+            data-aos="fade-up"
+            data-aos-duration="600"
+            required
+          />
+          <input
+            type="text"
+            class="f_input"
+            name="totalSulfurDioxide"
+            placeholder="Total sulfur dioxide (sample value:- 103)"
+            data-aos="fade-up"
+            data-aos-duration="700"
+            required
+          />
+          <input
+            type="text"
+            class="f_input"
+            name="density"
+            placeholder="density (sample value:- 0.9969)"
+            data-aos="fade-up"
+            data-aos-duration="800"
+            required
+          />
+          <input
+            type="text"
+            class="f_input"
+            name="sulphates"
+            placeholder="sulphates (sample value:- 0.75)"
+            data-aos="fade-up"
+            data-aos-duration="900"
+            required
+          />
+          <input
+            type="text"
+            class="f_input"
+            name="alcohol"
+            placeholder="Alcohol (sample value:- 10.5)"
+            required
+          />
+          <div class="f_btn_container">
+            <button class="f_btn">Check the quality</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
+  </body>
+</html>
